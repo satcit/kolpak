@@ -1,10 +1,16 @@
-<%@ page import="ru.satcit.kolpak.model.ManageTest" %>
 <html>
-    <head><title>haha</title></head>
-    <body>
-        <h1>Tro-lo-lo</h1>
-        <%
-            ManageTest.main(new String[]{});
-        %>
-    </body>
+<head>
+    <title>TODO make title</title>
+</head>
+<body>
+<br>
+<div style="text-align:center">
+    <h2>
+        Make home page for service
+    </h2>
+    <h3>
+        <a href="client/articles">Articles list</a>
+    </h3>
+</div>
+</body>
 </html>
