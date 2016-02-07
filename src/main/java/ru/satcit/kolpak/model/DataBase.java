@@ -1,10 +1,11 @@
 package ru.satcit.kolpak.model;
 
-import org.hibernate.SessionFactory;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PreDestroy;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 /**
@@ -14,10 +15,16 @@ import javax.persistence.Persistence;
 @Service
 @Scope("singleton")
 public class DataBase {
-  private SessionFactory factory;
-  private EntityManager em = Persistence.createEntityManagerFactory("entities").createEntityManager();
+  private EntityManagerFactory factory = Persistence.createEntityManagerFactory("entities");
+  private EntityManager em = factory.createEntityManager();
 
   public EntityManager getManager() {
     return em;
+  }
+
+  @PreDestroy
+  public void destroy() throws Exception {
+    em.close();
+    factory.close();
   }
 }
