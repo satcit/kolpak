@@ -96,6 +96,14 @@ public class Article implements Commented, HaveId {
     this.history = history;
   }
 
+  public void addHistory(ArticleHistory event) {
+    if(history.contains(event)) {
+      return;
+    }
+    history.add(event);
+    event.setArticle(this);
+  }
+
   @Override
   public List<ArticleComment> getComments() {
     return comments;

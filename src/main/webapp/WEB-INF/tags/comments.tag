@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sat" tagdir="/WEB-INF/tags"%>
 
-<table id="comments">
+<table>
     <tr>
         <td class="header">Comments</td>
     </tr>

@@ -18,7 +18,7 @@ import java.util.Date;
  */
 @Entity
 @Table(name="article_history")
-public class ArticleHistory {
+public class ArticleHistory implements HaveId, Comparable<ArticleHistory> {
   @Id
   @GeneratedValue
   @Column(name="id")
@@ -35,6 +35,15 @@ public class ArticleHistory {
   @Column(name="date")
   private Date date;
 
+  public ArticleHistory() {}
+
+  public ArticleHistory(Article article, Action action) {
+    setArticle(article);
+    setAction(action);
+    setDate(new Date());
+  }
+
+  @Override
   public long getId() {
     return id;
   }
@@ -48,7 +57,11 @@ public class ArticleHistory {
   }
 
   public void setArticle(Article article) {
+    if(this.article != null && this.article.equals(article)) {
+      return;
+    }
     this.article = article;
+    article.addHistory(this);
   }
 
   public Action getAction() {
@@ -67,8 +80,14 @@ public class ArticleHistory {
     this.date = date;
   }
 
+  @Override
+  public int compareTo(ArticleHistory o) {
+    return -1 * getDate().compareTo(o.getDate());
+  }
+
   public static enum Action {
     OPEN,
-    EDIT
+    EDIT,
+    CREATE
   }
 }

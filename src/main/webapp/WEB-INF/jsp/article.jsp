@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sat" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="math" uri="http://satcit.com/tags" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
     <title>${article.name}</title>
@@ -51,13 +53,20 @@
     </tr>
     <tr>
         <td>
-            <table id="article_commentsTable">
+            <table>
                 <tr><td><sat:createComment action="${article.id}/comments/create"/></td></tr>
                 <tr><td><sat:comments commented="${article}"/></td></tr>
             </table>
         </td>
-        <%--TODO add history tag--%>
-        <td class="header">History</td>
+        <td>
+            <table>
+                <tr><td>History</td></tr>
+                <c:forEach items="${article.history}" var="event" end="${math:min(fn:length(article.history), historyLimit)}">
+                    <tr><td class="date">${event.date}</td></tr>
+                    <tr><td>${event.action}</td></tr>
+                </c:forEach>
+            </table>
+        </td>
     </tr>
 </table>
 

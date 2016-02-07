@@ -27,7 +27,7 @@
     </tr>
     <tr>
         <td>
-            <table id="person_commentsTable">
+            <table>
                 <tr><td><sat:createComment action="${person.id}/comments/create"/></td></tr>
                 <tr><td><sat:comments commented="${person}"/></td></tr>
             </table>

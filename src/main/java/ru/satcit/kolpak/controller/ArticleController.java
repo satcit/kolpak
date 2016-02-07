@@ -43,10 +43,13 @@ public class ArticleController {
   public ModelAndView processArticle(@PathVariable long id) {
     Article article = manager.findById(Article.class, id);
     if(article != null) {
+      manager.createUpdateEntity(new ArticleHistory(article, ArticleHistory.Action.OPEN));
       Collections.sort(article.getComments());
+      Collections.sort(article.getHistory());
       ModelAndView view = new ModelAndView("article");
       view.addObject("article", article);
       view.addObject("comment", new ArticleComment());
+      view.addObject("historyLimit", 5);
       return view;
     }
     return new ModelAndView("notFound");
@@ -71,6 +74,7 @@ public class ArticleController {
     if("Create".equals(articleBean.getAction())) {
       article.setCreationDate(new Date());
       manager.createUpdateEntity(article);
+      manager.createUpdateEntity(new ArticleHistory(article, ArticleHistory.Action.CREATE));
       return "redirect:/client/articles";
     } else {
       Article persistedArticle = manager.findById(Article.class, article.getId());
@@ -81,6 +85,7 @@ public class ArticleController {
       persistedArticle.updateAuthors(article.getAuthors());
       persistedArticle.setPublicationDate(article.getPublicationDate());
 
+      manager.createUpdateEntity(new ArticleHistory(persistedArticle, ArticleHistory.Action.EDIT));
       manager.createUpdateEntity(persistedArticle);
       return "redirect:/client/articles/" + article.getId();
     }
