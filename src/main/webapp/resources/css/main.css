@@ -8,3 +8,15 @@
 #createArticle_authors {
     height: 200px;
 }
+
+#article_commentsTable {
+    width: 100%;
+}
+
+#person_commentsTable {
+    width: 100%;
+}
+
+#comments {
+    width: 100%;
+}

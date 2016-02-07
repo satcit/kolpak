@@ -73,11 +73,11 @@ public class ArticleController {
 
   @RequestMapping(value = "/{id}/comments/create", method = RequestMethod.POST)
   public String createComment(@ModelAttribute("comment") ArticleComment comment, @PathVariable long id) {
+    comment.setId(0);
     Article article = articleManager.findById(id);
     comment.setDate(new Date());
     comment.setArticle(article);
     article.getComments().add(comment);
-    Collections.sort(article.getComments());
     articleManager.createArticleComment(comment);
     return "redirect:/client/articles/" + Long.toString(id);
   }

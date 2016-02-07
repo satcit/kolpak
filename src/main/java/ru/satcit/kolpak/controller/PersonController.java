@@ -65,10 +65,10 @@ public class PersonController {
   @RequestMapping(value = "/{id}/comments/create", method = RequestMethod.POST)
   public String createComment(@ModelAttribute("comment") PersonComment comment, @PathVariable long id) {
     Person person = manager.findById(id);
+    comment.setId(0);
     comment.setDate(new Date());
     comment.setPerson(person);
     person.getComments().add(comment);
-    Collections.sort(person.getComments());
     manager.createPersonComment(comment);
     return "redirect:/client/persons/" + Long.toString(id);
   }

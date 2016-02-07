@@ -27,7 +27,7 @@
     <tr>
         <td>Authors:
             <c:forEach var="item" items="${article.authors}">
-                <a href="/client/persons/${item.id}"><c:out value="${item.shortName}" /></a><c:out value=" " />
+                <a href="../persons/${item.id}"><c:out value="${item.shortName}" /></a><c:out value=" " />
             </c:forEach>
         </td>
     </tr>
@@ -39,7 +39,7 @@
     </tr>
     <tr>
         <td>
-            <table>
+            <table id="article_commentsTable">
                 <tr><td><sat:createComment action="${article.id}/comments/create"/></td></tr>
                 <tr><td><sat:comments commented="${article}"/></td></tr>
             </table>

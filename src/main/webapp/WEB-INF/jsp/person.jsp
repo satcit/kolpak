@@ -7,7 +7,6 @@
 </head>
 <body>
 
-<c:set var="comments" scope="session" value="${person.comments}" />
 <table>
     <tr>
         <td class="date">
@@ -27,7 +26,7 @@
     </tr>
     <tr>
         <td>
-            <table>
+            <table id="person_commentsTable">
                 <tr><td><sat:createComment action="${person.id}/comments/create"/></td></tr>
                 <tr><td><sat:comments commented="${person}"/></td></tr>
             </table>
