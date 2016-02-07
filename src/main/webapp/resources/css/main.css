@@ -1,0 +1,10 @@
+.header {
+    text-align: center;
+}
+.date {
+    text-align: right;
+}
+
+#createArticle_authors {
+    height: 200px;
+}
