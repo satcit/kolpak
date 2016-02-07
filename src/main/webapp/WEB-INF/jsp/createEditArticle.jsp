@@ -18,12 +18,6 @@
             <td><form:label path="article.description">Description</form:label></td>
             <td><form:textarea path="article.description" /></td>
         </tr>
-        <tr></tr>
-        <%--TODO make file upload--%>
-        <%--<tr>--%>
-            <%--<td><form:label path="fileLink">File</form:label></td>--%>
-            <%--<td><input type="file" name="file" /> </td>--%>
-        <%--</tr>--%>
         <tr>
             <%--<td><form:label path="authros" />Author</td>--%>
             <td>Author</td>

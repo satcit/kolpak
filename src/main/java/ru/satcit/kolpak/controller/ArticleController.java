@@ -1,19 +1,21 @@
 package ru.satcit.kolpak.controller;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import ru.satcit.kolpak.model.Article;
-import ru.satcit.kolpak.model.ArticleComment;
-import ru.satcit.kolpak.model.Person;
-import ru.satcit.kolpak.model.RecordManager;
+import ru.satcit.kolpak.model.*;
 import ru.satcit.kolpak.view.ArticleBean;
 import ru.satcit.kolpak.view.MultipleDateEditor;
 import ru.satcit.kolpak.view.PersonEditor;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +30,8 @@ import java.util.List;
 public class ArticleController {
   @Autowired private RecordManager manager;
   @Autowired private PersonEditor personEditor;
+  @Autowired private HttpServletRequest request;
+  @Autowired private ServletContext context;
 
   @RequestMapping(method = RequestMethod.GET)
   public ModelAndView processArticles() {
@@ -114,5 +118,46 @@ public class ArticleController {
     dateEditor.setAllowEmpty(true);
     binder.registerCustomEditor(Date.class, dateEditor);
     binder.registerCustomEditor(Person.class, personEditor);
+  }
+
+  @RequestMapping(value = "/{id}/upload", method = RequestMethod.POST)
+  public String uploadFile(@PathVariable long id) {
+    Article article = manager.findById(Article.class, id);
+
+    java.io.File file ;
+    int maxMemSize = 5000 * 1024;
+    String repoPath = context.getInitParameter("repo-path");
+
+    // Verify the content type
+    String contentType = request.getContentType();
+    if (contentType.contains("multipart/form-data")) {
+      DiskFileItemFactory factory = new DiskFileItemFactory();
+      // maximum size that will be stored in memory
+      factory.setSizeThreshold(maxMemSize);
+      ServletFileUpload upload = new ServletFileUpload(factory);
+      try{
+        List<FileItem> fileItems = upload.parseRequest(request);
+        for (FileItem fi : fileItems) {
+          if (!fi.isFormField()) {
+            String[] fileName = fi.getName().split("\\.");
+            String extension = fileName.length > 1 ? "." + fileName[fileName.length - 1] : "";
+            String storedName = Long.toString(System.currentTimeMillis()) + extension;
+            // Write the file
+            file = new java.io.File(repoPath + storedName);
+            fi.write(file);
+            File fileEntity = new File();
+            fileEntity.setCreatedDate(new Date());
+            fileEntity.setName(fi.getName());
+            fileEntity.setPath(file.getAbsolutePath());
+            article.setFile(fileEntity);
+            manager.createUpdateEntity(fileEntity);
+            manager.createUpdateEntity(article);
+          }
+        }
+      }catch(Exception ex) {
+        System.out.println(ex);
+      }
+    }
+    return "redirect:/client/articles/" + id;
   }
 }

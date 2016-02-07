@@ -7,6 +7,14 @@
         id="kolpak" version="3.0">
     <display-name>kolpak</display-name>
 
+    <context-param>
+        <description>File repository path</description>
+        <param-name>repo-path</param-name>
+        <param-value>
+            d:/clouds/gdrive/kolpak-repo/
+        </param-value>
+    </context-param>
+
     <!-- Spring MVC mapper -->
     <servlet>
         <servlet-name>springMVC</servlet-name>

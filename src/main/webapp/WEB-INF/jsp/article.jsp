@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sat" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
     <title>${article.name}</title>
@@ -36,6 +37,16 @@
     </tr>
     <tr>
         <td><c:out value="${article.description}"/></td>
+    </tr>
+    <tr>
+        <td><form:form action="${article.id}/upload" method="post" enctype="multipart/form-data">
+            <table><tr>
+                <%--TODO fix file opening--%>
+                <td><a href="${article.file.path}">${article.file.name}</a></td>
+                <td><input type="file" name="file" /></td>
+                <td><input type="submit" value="Upload" /></td>
+            </tr></table>
+        </form:form></td>
     </tr>
     <tr>
         <td>

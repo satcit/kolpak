@@ -13,11 +13,14 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "file")
-public class File {
+public class File implements HaveId {
   @Id
   @GeneratedValue
   @Column(name = "id")
   private long id;
+
+  @Column
+  private String name;
 
   @Column(name = "path")
   private String path;
@@ -25,12 +28,21 @@ public class File {
   @Column(name = "created_date")
   private Date createdDate;
 
+  @Override
   public long getId() {
     return id;
   }
 
   public void setId(long id) {
     this.id = id;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getPath() {
