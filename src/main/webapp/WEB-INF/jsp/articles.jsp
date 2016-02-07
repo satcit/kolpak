@@ -10,7 +10,7 @@
 <table>
     <tr>
         <th>ID</th>
-        <th>Title 2</th>
+        <th>Title</th>
         <th>Author</th>
         <th>Added</th>
     </tr>

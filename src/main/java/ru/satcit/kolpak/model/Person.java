@@ -11,7 +11,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "person")
-public class Person implements Commented, Comparable<Person> {
+public class Person implements Commented, Comparable<Person>, HaveId {
   @Id
   @GeneratedValue
   @Column(name = "id")
@@ -37,6 +37,7 @@ public class Person implements Commented, Comparable<Person> {
   @ManyToMany(mappedBy = "authors")
   private List<Article> articles = new ArrayList<>();
 
+  @Override
   public long getId() {
     return id;
   }
@@ -94,6 +95,34 @@ public class Person implements Commented, Comparable<Person> {
     this.articles = articles;
   }
 
+  public void addArticle(Article article) {
+    if(articles.contains(article)) {
+      return;
+    }
+    articles.add(article);
+    article.addAuthor(this);
+  }
+
+  public void deleteArticle(Article article) {
+    if(articles.contains(article)) {
+      return;
+    }
+    articles.remove(article);
+    article.deleteAuthor(this);
+  }
+
+  public void updateArticles(List<Article> articles) {
+    if(this.articles.equals(articles)) {
+      return;
+    }
+    for(Article article : new ArrayList<>(this.articles)) {
+      deleteArticle(article);
+    }
+    for(Article article : articles) {
+      addArticle(article);
+    }
+  }
+
   public String getShortName() {
     return getSurname() + " " + getName().charAt(0) + ".";
   }
@@ -105,5 +134,14 @@ public class Person implements Commented, Comparable<Person> {
       result = getName().compareTo(o.getName());
     }
     return result;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if(!(obj instanceof Person)) {
+      return false;
+    }
+    Person p = (Person)obj;
+    return getId() == p.getId();
   }
 }

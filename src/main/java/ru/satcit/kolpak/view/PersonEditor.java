@@ -3,7 +3,7 @@ package ru.satcit.kolpak.view;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.satcit.kolpak.model.Person;
-import ru.satcit.kolpak.model.PersonManager;
+import ru.satcit.kolpak.model.RecordManager;
 
 import java.beans.PropertyEditorSupport;
 
@@ -13,11 +13,11 @@ import java.beans.PropertyEditorSupport;
  */
 @Component
 public class PersonEditor extends PropertyEditorSupport {
-  @Autowired private PersonManager manager;
+  @Autowired private RecordManager manager;
 
   @Override
   public void setAsText(String text) throws IllegalArgumentException {
-    setValue(manager.findById(Long.parseLong(text)));
+    setValue(manager.findById(Person.class, Long.parseLong(text)));
   }
 
   @Override

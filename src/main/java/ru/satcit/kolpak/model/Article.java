@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "ARTICLE")
-public class Article implements Commented {
+public class Article implements Commented, HaveId {
   @Id
   @GeneratedValue
   @Column(name = "id")
@@ -44,7 +44,7 @@ public class Article implements Commented {
       name="author_to_article",
       joinColumns = {@JoinColumn(name = "article_id", referencedColumnName = "id")},
       inverseJoinColumns = {@JoinColumn(name = "author_id", referencedColumnName = "id")})
-  private List<Person> authors;
+  private List<Person> authors = new ArrayList<>();
 
   @Column(name = "journal")
   private String journal;
@@ -55,6 +55,7 @@ public class Article implements Commented {
   public Article() {
   }
 
+  @Override
   public long getId() {
     return id;
   }
@@ -120,6 +121,34 @@ public class Article implements Commented {
     this.authors = authors;
   }
 
+  public void updateAuthors(List<Person> authors) {
+    if(this.authors.equals(authors)) {
+      return;
+    }
+    for(Person author : new ArrayList<>(this.authors)) {
+      deleteAuthor(author);
+    }
+    for(Person author : authors) {
+      addAuthor(author);
+    }
+  }
+
+  public void addAuthor(Person person) {
+    if(authors.contains(person)) {
+      return;
+    }
+    authors.add(person);
+    person.addArticle(this);
+  }
+
+  public void deleteAuthor(Person person) {
+    if(!authors.contains(person)) {
+      return;
+    }
+    authors.remove(person);
+    person.deleteArticle(this);
+  }
+
   public Date getPublicationDate() {
     return publicationDate;
   }
@@ -134,5 +163,14 @@ public class Article implements Commented {
 
   public void setJournal(String journal) {
     this.journal = journal;
+  }
+
+  @Override
+  public boolean equals(Object obj) {
+    if(!(obj instanceof Article)) {
+      return false;
+    }
+    Article p = (Article)obj;
+    return getId() == p.getId();
   }
 }

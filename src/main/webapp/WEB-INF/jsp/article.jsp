@@ -7,7 +7,7 @@
     <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet">
 </head>
 <body>
-<c:set var="comments" scope="session" value="${article.comments}" />
+
 <table>
     <tr>
         <td class="date">

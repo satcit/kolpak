@@ -3,20 +3,20 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <html>
 <head>
-    <title>Create article</title>
+    <title>${title}</title>
     <link href="<c:url value="/resources/css/main.css" />" rel="stylesheet" type="text/css">
 </head>
 <body>
 
-<form:form action="create" modelAttribute="article" method="post">
+<form:form action="update" modelAttribute="articleBean" method="post">
     <table>
         <tr>
-            <td><form:label path="name">Name</form:label></td>
-            <td><form:input path="name" /></td>
+            <td><form:label path="article.name">Name</form:label></td>
+            <td><form:input path="article.name" /></td>
         </tr>
         <tr>
-            <td><form:label path="description">Description</form:label></td>
-            <td><form:textarea path="description" /></td>
+            <td><form:label path="article.description">Description</form:label></td>
+            <td><form:textarea path="article.description" /></td>
         </tr>
         <tr></tr>
         <%--TODO make file upload--%>
@@ -28,16 +28,18 @@
             <%--<td><form:label path="authros" />Author</td>--%>
             <td>Author</td>
             <td>
-                <form:select multiple="true" path="authors" items="${allAuthors}" itemValue="id" itemLabel="shortName" id="createArticle_authors"/>
+                <form:select multiple="true" path="article.authors" items="${allAuthors}" itemValue="id" itemLabel="shortName" id="createArticle_authors"/>
             </td>
         </tr>
         <tr>
-            <td><form:label path="publicationDate">Published</form:label></td>
-            <td><form:input path="publicationDate" /></td>
+            <td><form:label path="article.publicationDate">Published</form:label></td>
+            <td><form:input path="article.publicationDate" /></td>
         </tr>
         <tr>
             <td colspan="2">
-                <input type="submit" value="Create" />
+                <input type="submit" value="${articleBean.action}" />
+                <form:hidden path="action" />
+                <form:hidden path="article.id" />
             </td>
         </tr>
     </table>

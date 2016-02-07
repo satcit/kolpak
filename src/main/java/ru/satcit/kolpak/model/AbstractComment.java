@@ -12,7 +12,7 @@ import java.util.Date;
  * Date: 26.01.16 13:23
  */
 @MappedSuperclass
-public class AbstractComment implements Comment, Comparable<AbstractComment> {
+public class AbstractComment implements Comment, Comparable<AbstractComment>, HaveId {
   private static final String DATE_PATTERN = "dd-MM-yyyy HH:mm";
 
   @Id
@@ -26,6 +26,7 @@ public class AbstractComment implements Comment, Comparable<AbstractComment> {
   @Column(name="date")
   private Date date;
 
+  @Override
   public long getId() {
     return id;
   }
