@@ -9,20 +9,21 @@
 
 <table>
     <tr>
+        <td><a href="<c:url value="${person.id}/edit"/>">Edit</a></td>
         <td class="date">
             <c:out value="${person.birthDate}"/>
         </td>
     </tr>
     <tr>
-        <td class="header">
+        <td class="header" colspan="2">
             <h4><b><c:out value="${person.name} ${person.surname}"/></b></h4>
         </td>
     </tr>
     <tr>
-        <td class="header">Description</td>
+        <td class="header" colspan="2">Description</td>
     </tr>
     <tr>
-        <td><c:out value="${person.description}"/></td>
+        <td colspan="2"><c:out value="${person.description}"/></td>
     </tr>
     <tr>
         <td>

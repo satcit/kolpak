@@ -11,35 +11,36 @@
 
 <table>
     <tr>
+        <td><a href="<c:url value="${article.id}/edit"/>">Edit</a></td>
         <td class="date">
             <c:out value="Created: ${article.creationDate}"/>
         </td>
     </tr>
     <tr>
-        <td class="date">
+        <td class="date" colspan="2">
             <c:out value="Published: ${article.publicationDate}"/>
         </td>
     </tr>
     <tr>
-        <td class="header">
+        <td class="header" colspan="2">
             <h4><b><c:out value="${article.name}"/></b></h4>
         </td>
     </tr>
     <tr>
-        <td>Authors:
+        <td colspan="2">Authors:
             <c:forEach var="item" items="${article.authors}">
                 <a href="../persons/${item.id}"><c:out value="${item.shortName}" /></a><c:out value=" " />
             </c:forEach>
         </td>
     </tr>
     <tr>
-        <td class="header">Description</td>
+        <td class="header" colspan="2">Description</td>
     </tr>
     <tr>
         <td><c:out value="${article.description}"/></td>
     </tr>
     <tr>
-        <td><form:form action="${article.id}/upload" method="post" enctype="multipart/form-data">
+        <td colspan="2"><form:form action="${article.id}/upload" method="post" enctype="multipart/form-data">
             <table><tr>
                 <%--TODO fix file opening--%>
                 <td><a href="${article.file.path}">${article.file.name}</a></td>
