@@ -1,7 +1,5 @@
 package ru.satcit.kolpak.model;
 
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -26,7 +24,6 @@ public class Article implements Commented, HaveId {
   private String description = "";
 
   @Column(name = "creation_date")
-  @DateTimeFormat(pattern = "dd/MM/yyyy HH:mm")
   private Date creationDate;
 
   @OneToMany(mappedBy = "article")

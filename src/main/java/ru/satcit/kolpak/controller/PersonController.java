@@ -1,7 +1,6 @@
 package ru.satcit.kolpak.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -11,9 +10,9 @@ import ru.satcit.kolpak.model.ArticleComment;
 import ru.satcit.kolpak.model.Person;
 import ru.satcit.kolpak.model.PersonComment;
 import ru.satcit.kolpak.model.RecordManager;
+import ru.satcit.kolpak.view.MultipleDateEditor;
 import ru.satcit.kolpak.view.PersonBean;
 
-import java.text.SimpleDateFormat;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -100,7 +99,8 @@ public class PersonController {
 
   @InitBinder
   public void initBinder(WebDataBinder binder) {
-    // TODO fix binders
-    binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("dd/MM/yyyy"), true));
+    MultipleDateEditor dateEditor = new MultipleDateEditor();
+    dateEditor.setAllowEmpty(true);
+    binder.registerCustomEditor(Date.class, dateEditor);
   }
 }

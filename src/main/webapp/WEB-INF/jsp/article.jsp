@@ -4,6 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="math" uri="http://satcit.com/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>${article.name}</title>
@@ -15,12 +16,14 @@
     <tr>
         <td><a href="<c:url value="${article.id}/edit"/>">Edit</a></td>
         <td class="date">
-            <c:out value="Created: ${article.creationDate}"/>
+            <c:out value="Created: "/>
+            <fmt:formatDate value="${article.creationDate}" pattern="dd-MM-yyyy" />
         </td>
     </tr>
     <tr>
         <td class="date" colspan="2">
-            <c:out value="Published: ${article.publicationDate}"/>
+            <c:out value="Published: "/>
+            <fmt:formatDate value="${article.publicationDate}" pattern="MM-yyyy" />
         </td>
     </tr>
     <tr>
@@ -39,7 +42,7 @@
         <td class="header" colspan="2">Description</td>
     </tr>
     <tr>
-        <td><c:out value="${article.description}"/></td>
+        <td colspan="2"><c:out value="${article.description}"/></td>
     </tr>
     <tr>
         <td colspan="2"><form:form action="${article.id}/upload" method="post" enctype="multipart/form-data">
@@ -62,7 +65,7 @@
             <table>
                 <tr><td>History</td></tr>
                 <c:forEach items="${article.history}" var="event" end="${math:min(fn:length(article.history), historyLimit)}">
-                    <tr><td class="date">${event.date}</td></tr>
+                    <tr><td class="date"><fmt:formatDate value="${event.date}" pattern="dd-MM-yyyy HH:mm" /></td></tr>
                     <tr><td>${event.action}</td></tr>
                 </c:forEach>
             </table>

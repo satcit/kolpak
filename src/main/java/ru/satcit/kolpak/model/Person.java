@@ -24,8 +24,6 @@ public class Person implements Commented, Comparable<Person>, HaveId {
   private String surname;
 
   @Column(name = "birth_date")
-  //TODO make date format work
-//  @DateTimeFormat(pattern = "dd/MM/yyyy")
   private Date birthDate;
 
   @Column(name = "description")

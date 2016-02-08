@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="sat" tagdir="/WEB-INF/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>${person.name} ${person.surname}</title>
@@ -11,7 +12,7 @@
     <tr>
         <td><a href="<c:url value="${person.id}/edit"/>">Edit</a></td>
         <td class="date">
-            <c:out value="${person.birthDate}"/>
+            <fmt:formatDate value="${person.birthDate}" pattern="dd-MM-yyyy" />
         </td>
     </tr>
     <tr>

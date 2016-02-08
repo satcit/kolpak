@@ -13,16 +13,16 @@ import java.util.Date;
  * Date: 26.01.16 22:09
  */
 public class MultipleDateEditor extends PropertyEditorSupport {
-  public final static String DEFAULT_OUTPUT_FORMAT = "dd/mm/yyyy";
+  public final static String DEFAULT_OUTPUT_FORMAT = "dd/MM/yyyy";
   public final static String[] DEFAULT_INPUT_FORMATS = {
-      "dd/mm/yyyy hh:mm:ss",
-      "dd-mm-yyyy hh:mm:ss",
-      "dd/mm/yy hh:mm:ss",
-      "dd-mm-yy hh:mm:ss",
-      "dd/mm/yyyy",
-      "dd-mm-yyyy",
-      "dd/mm/yy",
-      "dd-mm-yy",
+      "dd/MM/yyyy HH:mm:ss",
+      "dd-MM-yyyy HH:mm:ss",
+      "dd/MM/yy HH:mm:ss",
+      "dd-MM-yy HH:mm:ss",
+      "dd/MM/yyyy",
+      "dd-MM-yyyy",
+      "dd/MM/yy",
+      "dd-MM-yy",
       "yyyy"
   };
 

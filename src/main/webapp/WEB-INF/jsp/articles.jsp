@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
 <head>
     <title>Articles</title>
@@ -8,14 +9,16 @@
 </head>
 <body>
 <table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Published</th>
+        </tr>
+    </thead>
     <tr>
-        <th>ID</th>
-        <th>Title</th>
-        <th>Author</th>
-        <th>Added</th>
-    </tr>
-    <tr>
-        <td colspan="2">
+        <td colspan="4">
             <form:form method="get" action="articles/create">
                 <input type="submit" value="Create article" />
             </form:form>
@@ -36,7 +39,7 @@
                     </c:otherwise>
                 </c:choose>
             </td>
-            <td><c:out value="${item.creationDate}" /></td>
+            <td><fmt:formatDate value="${item.publicationDate}" pattern="yyyy" /></td>
         </tr>
     </c:forEach>
 </table>

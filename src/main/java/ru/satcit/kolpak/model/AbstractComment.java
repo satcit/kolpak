@@ -4,7 +4,6 @@ import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -13,8 +12,6 @@ import java.util.Date;
  */
 @MappedSuperclass
 public class AbstractComment implements Comment, Comparable<AbstractComment>, HaveId {
-  private static final String DATE_PATTERN = "dd-MM-yyyy HH:mm";
-
   @Id
   @GeneratedValue
   @Column(name="id")
@@ -44,17 +41,13 @@ public class AbstractComment implements Comment, Comparable<AbstractComment>, Ha
     this.text = text;
   }
 
+  @Override
   public Date getDate() {
     return date;
   }
 
   public void setDate(Date date) {
     this.date = date;
-  }
-
-  @Override
-  public String getFormattedDate() {
-    return new SimpleDateFormat(DATE_PATTERN).format(getDate());
   }
 
   @Override
